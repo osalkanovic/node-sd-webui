@@ -1,5 +1,6 @@
 import { img2img, Img2ImgOptions, Img2ImgResponse } from './sdapi/img2img.js'
 import { pngInfo, PngInfoOptions, PngInfoResponse } from './sdapi/pngInfo.js'
+import { progress, ProgressResponse } from './sdapi/progress.js'
 import { txt2img, Txt2ImgOptions, Txt2ImgResponse } from './sdapi/txt2img.js'
 export * from './types.js'
 
@@ -12,6 +13,7 @@ export type Client = {
   pngInfo: (options: PngInfoOptions) => Promise<PngInfoResponse>
   img2img: (options: Img2ImgOptions) => Promise<Img2ImgResponse>
   txt2img: (options: Txt2ImgOptions) => Promise<Txt2ImgResponse>
+  progress: () => Promise<ProgressResponse>
 }
 
 const sdwebui = (props?: Props): Client => {
@@ -22,6 +24,7 @@ const sdwebui = (props?: Props): Client => {
     pngInfo: (options: PngInfoOptions) => pngInfo(options, apiUrl),
     img2img: (options: Img2ImgOptions) => img2img(options, apiUrl),
     txt2img: (options: Txt2ImgOptions) => txt2img(options, apiUrl),
+    progress: () => progress(apiUrl),
   }
 }
 

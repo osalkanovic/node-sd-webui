@@ -1,23 +1,4 @@
-export enum ResizeMode {
-  Envelope = 'Envelope (Outer Fit)',
-  ScaleToFit = 'Scale to Fit (Inner Fit)',
-  JustResize = 'Just Resize',
-}
-
-export enum Preprocessor {
-  None = 'none',
-  Canny = 'canny',
-  Depth = 'depth',
-  Depth_LeRes = 'depth_leres',
-  HED = 'hed',
-  MLSD = 'mlsd',
-  NormalMap = 'normal_map',
-  OpenPose = 'openpose',
-  Pidinet = 'pidinet',
-  Scribble = 'scribble',
-  Fake_Scribble = 'fake_scribble',
-  Segmentation = 'segmentation',
-}
+import { Preprocessor, ResizeMode, ControlMode } from '../../types'
 
 export type ControlNetOptions = {
   inputImageData?: string
@@ -33,6 +14,8 @@ export type ControlNetOptions = {
   guidanceStart?: number
   guidanceEnd?: number
   guessMode?: boolean
+  controlMode?: ControlMode
+  pixelPerfect?: boolean
 }
 
 export const mapControlNetOptions = (options: ControlNetOptions) => {
@@ -45,6 +28,8 @@ export const mapControlNetOptions = (options: ControlNetOptions) => {
     resize_mode: options.resizeMode || ResizeMode.ScaleToFit,
     guess_mode: options.guessMode || false,
     lowvram: options.lowvram || false,
+    control_mode: options.controlMode || ControlMode.Balanced,
+    pixel_perfect: options.pixelPerfect,
   }
 
   if (options.inputImageData) {

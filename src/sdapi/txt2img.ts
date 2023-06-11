@@ -43,6 +43,7 @@ export type Txt2ImgOptions = {
   extensions?: {
     controlNet?: ControlNetOptions[]
   }
+  job: string
 }
 
 export type Txt2ImgResponse = {
@@ -67,6 +68,7 @@ const mapTxt2ImgOptions = (options: Txt2ImgOptions) => {
     cfg_scale: options.cfgScale,
     seed_resize_from_w: options.resizeSeedFromWidth,
     seed_resize_from_h: options.resizeSeedFromHeight,
+    job: options.job,
   }
 
   if (options.hires) {
@@ -92,7 +94,9 @@ const mapTxt2ImgOptions = (options: Txt2ImgOptions) => {
 
   const { extensions } = options
   if (extensions?.controlNet) {
-    body.controlnet_units = extensions.controlNet.map(mapControlNetOptions)
+    body.alwayson_scripts = {
+      controlnet: { args: extensions.controlNet.map(mapControlNetOptions) },
+    }
   }
 
   return body
@@ -105,9 +109,6 @@ export const txt2img = async (
   const body = mapTxt2ImgOptions(options)
 
   let endpoint = '/sdapi/v1/txt2img'
-  if (options.extensions?.controlNet) {
-    endpoint = '/controlnet/txt2img'
-  }
 
   /* @ts-ignore */
   const result = await fetch(`${apiUrl}${endpoint}`, {

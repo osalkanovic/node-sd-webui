@@ -19,3 +19,30 @@ export enum SamplingMethod {
   DDIM = 'DDIM',
   PLMS = 'PLMS',
 }
+
+export enum ResizeMode {
+  Envelope = 'Envelope (Outer Fit)',
+  ScaleToFit = 'Scale to Fit (Inner Fit)',
+  JustResize = 'Just Resize',
+}
+
+export enum ControlMode {
+  Balanced = 'Balanced',
+  PromptMoreImportant = 'My prompt is more important',
+  ControlNetImportant = 'ControlNet is more important',
+}
+
+export enum Preprocessor {
+  None = 'none',
+  Canny = 'canny',
+  Depth = 'depth',
+  Depth_LeRes = 'depth_leres',
+  HED = 'hed',
+  MLSD = 'mlsd',
+  NormalMap = 'normal_map',
+  OpenPose = 'openpose',
+  Pidinet = 'pidinet',
+  Scribble = 'scribble',
+  Fake_Scribble = 'fake_scribble',
+  Segmentation = 'segmentation',
+}
