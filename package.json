@@ -10,7 +10,7 @@
   "scripts": {
     "build:json": "json -f ./dist/package.json -I -e \"delete this.type; delete this.ava; delete this.devDependencies; delete this.scripts\"",
     "build:copy-files": "cp package.json ./dist/package.json &&  cp README.md ./dist/README.md && cp LICENSE ./dist/LICENSE",
-    "build": "rm -rf ./dist && tsc --project tsconfig.esm.json & tsc --project tsconfig.cjs.json && pnpm run build:copy-files && pnpm run build:json",
+    "build": "rm -rf ./dist && tsc --project tsconfig.esm.json & tsc --project tsconfig.cjs.json && pnpm run build:copy-files && pnpm run build:json && webpack --mode production --module-bind 'ts=ts-loader'",
     "test": "ava",
     "publish": "cd ./dist && npm publish --access public"
   },
@@ -18,7 +18,7 @@
     "@types/node": "^18.13.0",
     "ava": "^5.2.0",
     "json": "^11.0.0",
-    "ts-node": "^10.9.1",
+    "ts-node": "^10.9.1","webpack": "^5.64.4", "ts-loader": "^9.2.6",
     "typescript": "^4.9.3"
   },
   "ava": {
